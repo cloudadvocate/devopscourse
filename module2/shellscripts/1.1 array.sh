@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# syntax: array_name[index]=value
+#===============syntax====================
+# array_name[index]=value
+#=========================================
 
 # assigning list of names to array NAME
 NAME[0]="Anil"

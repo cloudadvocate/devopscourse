@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# Function Syntax
+# ===============syntax====================
 # function_name () { 
 #   list of commands
-#}
+# }
+# =========================================  
 
 
 # A simple function which prints the greeting message

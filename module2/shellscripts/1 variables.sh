@@ -1,6 +1,8 @@
 #!/bin/bash
 
-#syntax VARIABLE_NAME=VALUE
+# ===============syntax====================
+# VARIABLE_NAME=VALUE
+# =========================================
 
 #Assinging Variable NAME
 NAME="Anil"

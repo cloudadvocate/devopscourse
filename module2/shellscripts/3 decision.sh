@@ -2,6 +2,16 @@
 
 # This shell script covers Shell Scripting Decision Making and Demo of decision making with other Operators
 
+
+#===============syntax====================
+# if [ condition ]
+# then
+#     ------
+# else
+#     ------
+# fi
+#=========================================
+
 # assign two variables a and b to demonstrate variables
 VARA=60
 VARB=30
