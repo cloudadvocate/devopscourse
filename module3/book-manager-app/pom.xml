@@ -63,6 +63,14 @@
 		</profile>
 	</profiles>
 
+	<distributionManagement>
+		<repository>
+			<id>cloudadvocate-book-manager-repository</id>
+			<name>cloudadvocate-book-manager-repository</name>
+			<url>https://cloudadvocate-363267848264.d.codeartifact.ap-south-1.amazonaws.com/maven/book-manager-repository/</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
 		<extensions>
 			<extension>
