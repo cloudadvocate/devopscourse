@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -47,30 +48,20 @@
 		</dependency>
 	</dependencies>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>artifact-registry</id>
-			<url>artifactregistry://us-central1-maven.pkg.dev/youtube-demo-255723/books-management</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-		<repository>
-			<id>artifact-registry</id>
-			<url>artifactregistry://us-central1-maven.pkg.dev/youtube-demo-255723/books-management</url>
-		</repository>
-	</distributionManagement>
-
-	<repositories>
-		<repository>
-			<id>artifact-registry</id>
-			<url>artifactregistry://us-central1-maven.pkg.dev/youtube-demo-255723/books-management</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+	<profiles>
+		<profile>
+			<id>cloudadvocate-book-manager-repository</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>cloudadvocate-book-manager-repository</id>
+					<url>https://cloudadvocate-363267848264.d.codeartifact.ap-south-1.amazonaws.com/maven/book-manager-repository/</url>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
 
 	<build>
 		<extensions>
