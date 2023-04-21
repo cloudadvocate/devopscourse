@@ -23,14 +23,14 @@ jobs:
           distribution: 'adopt'
           cache: 'maven'
       
-      - name: Execute Junit Test Cases
+      - name: Build the code
         run: cd ${WORKSPACE} && mvn clean install package
 
       - name: Junit Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: JEST Tests
+          name: Junit Test
           path: 'module3/book-manager-app/target/surefire-reports/*.xml' 
           reporter: java-junit
 
