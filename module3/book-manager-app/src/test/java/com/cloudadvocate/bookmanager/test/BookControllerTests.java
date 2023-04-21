@@ -65,7 +65,7 @@ public class BookControllerTests {
 
 		when(bookRepository.findById(id)).thenReturn(Optional.of(book));
 		mockMvc.perform(get("/api/books/{id}", id)).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(id))
-				.andExpect(jsonPath("$.title").value(book.getTitle()))
+				.andExpect(jsonPath("$.title").value(book.getDescription()))
 				.andExpect(jsonPath("$.description").value(book.getDescription()))
 				.andExpect(jsonPath("$.published").value(book.isPublished())).andDo(print());
 	}
