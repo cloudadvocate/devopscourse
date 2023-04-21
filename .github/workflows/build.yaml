@@ -34,7 +34,7 @@ jobs:
           aws-region: ap-south-1
 
       - name: Build the code
-        run: export CODEARTIFACT_AUTH_USER=aws && export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain cloudadvocate --domain-owner 363267848264 --region ap-south-1 --query authorizationToken --output text` && cd ${WORKSPACE} && mvn clean install package
+        run: export CODEARTIFACT_AUTH_USER=aws && export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain cloudadvocate --domain-owner 363267848264 --region ap-south-1 --query authorizationToken --output text` && cd ${WORKSPACE} && mvn clean install package deploy
 
       - name: Junit Test Report
         uses: dorny/test-reporter@v1
