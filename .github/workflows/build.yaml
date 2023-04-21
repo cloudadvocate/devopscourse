@@ -33,8 +33,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: ap-south-1
 
+      - name: Set CODEARTIFACT_AUTH_TOKEN env
+        run: echo "CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain cloudadvocate --domain-owner 363267848264 --region ap-south-1 --query authorizationToken --output text)" >> $GITHUB_ENV
+
+      - name: Set CODEARTIFACT_AUTH_USER env
+        run: echo "CODEARTIFACT_AUTH_USER=aws" >> $GITHUB_ENV
+
       - name: Build the code
-        run: export CODEARTIFACT_AUTH_USER=aws && export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain cloudadvocate --domain-owner 363267848264 --region ap-south-1 --query authorizationToken --output text` && cd ${WORKSPACE} && mvn clean install package deploy
+        run: cd ${WORKSPACE} && mvn clean install package deploy
 
       - name: Junit Test Report
         uses: dorny/test-reporter@v1
