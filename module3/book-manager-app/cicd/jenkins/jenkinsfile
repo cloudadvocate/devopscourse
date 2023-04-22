@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Unit Test') {
             steps {
-                dir('book-manager-app'){
+                dir('module3/book-manager-app'){
                     sh 'mvn surefire-report:report'
                     junit 'target/surefire-reports/*.xml'
                 }
@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Code Coverage') {
             steps {
-                dir('book-manager-app'){
+                dir('module3/book-manager-app'){
                     jacoco()
                 }
             }
@@ -22,14 +22,14 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir('book-manager-app'){
+                dir('module3/book-manager-app'){
                     sh 'mvn clean package'
                 }
             }
         }
         stage('Artifactory') {
             steps {
-                dir('book-manager-app'){
+                dir('module3/book-manager-app'){
                     sh 'mvn deploy'
                 }
             }
