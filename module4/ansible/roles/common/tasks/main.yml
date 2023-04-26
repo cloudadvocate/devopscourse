@@ -1,3 +1,7 @@
 ---
-- name: test common playbook
-  shell: echo "From common role"
+- name: install java
+  yum:
+    name: java
+    state: present
+  become: true
+  become_method: sudo
