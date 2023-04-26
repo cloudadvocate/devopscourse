@@ -1,0 +1,2 @@
+[bookmanager]
+ec2-52-23-185-158.compute-1.amazonaws.com ansible_connection=ssh ansible_ssh_user=ec2-user

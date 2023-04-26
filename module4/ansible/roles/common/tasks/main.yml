@@ -1,0 +1,3 @@
+---
+- name: test common playbook
+  shell: echo "From common role"
