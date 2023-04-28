@@ -1,0 +1,2 @@
+user: ec2-user
+application_dir: /apps/opt

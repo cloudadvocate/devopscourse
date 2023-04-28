@@ -1,12 +1,25 @@
 ---
 
-- name: create folder for application deployment
-  shell: mkdir -p /apps/opt && chown -R ec2-user:ec2-user /apps && chmod -R 764 /apps
-  become: true
-  become_method: sudo
 
-- name: download artifact from artifactory
-  shell: cd /apps/opt && aws codeartifact get-package-version-asset --domain cloudadvocate --domain-owner 363267848264 --repository book-manager-repository --format maven --namespace com.cloudadvocate.java --package bookmanager --package-version 1.0.0-SNAPSHOT \
-    --asset bookmanager-1.0.0-20230426.050959-19.jar \
-    bookmanager.jar
-  
+
+- name: copy checkforprocess shell script
+  copy: 
+    src: checkforprocess.sh
+    dest: "{{application_dir}}"
+
+- name: check if process is running
+  shell: cd {{application_dir}} && ./checkforprocess.sh
+  register: processcheck
+
+- debug: var=processcheck
+
+- name: skip if process is running
+  include: deploy.yml
+  when: processcheck.stdout == 'not running'
+
+
+
+
+
+
+

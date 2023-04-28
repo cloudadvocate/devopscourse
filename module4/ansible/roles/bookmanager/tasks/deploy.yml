@@ -1,0 +1,12 @@
+---
+
+- name: download artifact from artifactory
+  shell: cd {{application_dir}} && aws codeartifact get-package-version-asset --domain cloudadvocate --domain-owner 363267848264 --repository book-manager-repository --format maven --namespace com.cloudadvocate.java --package bookmanager --package-version 1.0.0-20230426.050959-19 \
+    --asset bookmanager-1.0.0-20230426.050959-19.jar \
+    bookmanager.jar
+
+- name: create log file
+  shell: cd {{application_dir}} && touch application.log && chmod 777 application.log
+
+- name: execute java application
+  shell: cd {{application_dir}} && nohup java -jar bookmanager.jar </dev/null > application.log 2>&1 &

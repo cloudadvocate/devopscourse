@@ -1,8 +1,10 @@
 ---
 - hosts: all
+  remote_user: "{{user}}"
   roles:
   - role: common
 
 - hosts: bookmanager
+  remote_user: "{{user}}"
   roles:
   - role: bookmanager

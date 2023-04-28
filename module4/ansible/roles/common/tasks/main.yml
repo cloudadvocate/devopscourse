@@ -1,7 +1,13 @@
 ---
+
 - name: install java
   yum:
     name: java
     state: present
+  become: true
+  become_method: sudo
+
+- name: create folder for application deployment
+  shell: mkdir -p {{application_dir}} && chown -R {{user}}:{{user}} /apps && chmod -R 764 /apps
   become: true
   become_method: sudo
