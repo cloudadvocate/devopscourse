@@ -1,9 +1,6 @@
 name: book manager app build application
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 env:
   WORKSPACE: module3/book-manager-app
 permissions:

@@ -1,0 +1,19 @@
+[Unit]
+Description=The Book Manager Application
+After=syslog.target
+
+[Service]
+User=root
+WorkingDirectory=/apps
+PIDFile=/run/bookmanager.pid
+Environment="STDOUT=/var/log/bookmanager/application.log"
+Environment="STDOUT=/var/log/bookmanager/error.log"
+ExecStart=/usr/bin/java -jar /apps/bookmanager.jar --server.port=8082
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+KillMode=control-group
+
+[Install]
+WantedBy=multi-user.target

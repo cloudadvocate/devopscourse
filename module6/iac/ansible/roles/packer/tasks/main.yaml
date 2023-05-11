@@ -1,0 +1,13 @@
+---
+
+- name: download hashicorp gpg key
+  shell: curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+
+- name: add apt reporsitory
+  shell: sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
+- name: install packer
+  apt:
+    name: packer
+    state: present
+    update_cache: yes

@@ -1,0 +1,40 @@
+---
+
+- name: install java
+  hosts: 127.0.0.1
+  connection: local
+  become: true
+  become_method: sudo
+
+
+  tasks:
+    - name: Install openjdk
+      apt:
+        name: openjdk-11-jdk
+        state: present
+      
+    
+    - name: create log directory
+      shell: mkdir -p /apps /var/log/bookmanager
+    
+    - name: move application jar to /apps
+      shell: mv /tmp/bookmanager.jar /apps
+
+    - name: create log files
+      shell: touch /var/log/bookmanager/application.log /var/log/bookmanager/error.log
+
+    - name: provide write access to application logs
+      shell: chmod 777 /var/log/bookmanager/application.log /var/log/bookmanager/error.log
+    
+    - name: create service directory
+      shell: mv /tmp/bookmanager.service /etc/systemd/system/ && chmod 664 /etc/systemd/system/bookmanager.service 
+    
+    - name: reload daemon 
+      shell: systemctl daemon-reload
+
+    - name: start book manager application
+      shell: systemctl enable bookmanager.service
+
+    - name: start book manager application
+      shell: systemctl start bookmanager.service
+
