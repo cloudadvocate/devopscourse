@@ -1,13 +1,16 @@
-name: book manager app docker image
+name: book manager app ami creation
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 permissions:
   contents: read
   issues: read
   checks: write
   pull-requests: write
 jobs:
-  build-docker:
+  build-aws-ami:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,22 +30,9 @@ jobs:
       - name: download artifact from artifactory
         run: aws codeartifact get-package-version-asset --domain cloudadvocate --domain-owner 363267848264 --repository book-manager-repository --format maven --namespace com.cloudadvocate.java --package bookmanager --package-version 1.0.0-20230426.050959-19 --asset bookmanager-1.0.0-20230426.050959-19.jar bookmanager.jar
 
-      - name: copy dockerfile
-        run:  cp module3/book-manager-app/Dockerfile .
+      - name: Run `packer init`
+        run: packer init ./module6/iac/packer/book-manager.pkr.hcl
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      - name: Run `packer build`
+        run: packer build ./module6/iac/packer/book-manager.pkr.hcl
 
-      - name: Set up ECR access
-        run: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 363267848264.dkr.ecr.ap-south-1.amazonaws.com
-      
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-         context: .
-         push: true
-         file: ./Dockerfile
-         tags: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/bookmanager:latest
-
-      
-      
