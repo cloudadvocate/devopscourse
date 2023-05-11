@@ -36,7 +36,7 @@ jobs:
         run:  cp module3/book-manager-app/Dockerfile .
       
       - name: Set up Docker Buildx
-        run: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v2
       
       - name: Build and push
         uses: docker/build-push-action@v4
