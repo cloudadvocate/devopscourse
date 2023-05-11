@@ -1,9 +1,6 @@
 name: book manager app ami creation
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 permissions:
   contents: read
   issues: read
