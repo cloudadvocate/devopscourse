@@ -1,0 +1,50 @@
+name: book manager app build application
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+env:
+  WORKSPACE: module3/book-manager-app
+permissions:
+  contents: read
+  issues: read
+  checks: write
+  pull-requests: write
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ap-south-1
+
+      - name: Set CODEARTIFACT_AUTH_TOKEN env
+        run: echo "CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain cloudadvocate --domain-owner 363267848264 --region ap-south-1 --query authorizationToken --output text)" >> $GITHUB_ENV
+
+      - name: Set CODEARTIFACT_AUTH_USER env
+        run: echo "CODEARTIFACT_AUTH_USER=aws" >> $GITHUB_ENV
+
+      - name: download artifact from artifactory
+        run: aws codeartifact get-package-version-asset --domain cloudadvocate --domain-owner 363267848264 --repository book-manager-repository --format maven --namespace com.cloudadvocate.java --package bookmanager --package-version 1.0.0-20230426.050959-19 --asset bookmanager-1.0.0-20230426.050959-19.jar bookmanager.jar
+
+      - name: copy dockerfile
+        run:  cp module3/book-manager-app/Dockerfile .
+      
+      - name: Set up Docker Buildx
+        run: docker/setup-buildx-action@v2
+      
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+         context: .
+         push: true
+         file: ./Dockerfile
+         tags: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/bookmanager:latest
+
+      
+      
