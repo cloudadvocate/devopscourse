@@ -1,6 +1,9 @@
-name: book manager app infrasture creation
+name: book manager app infrasture deletion
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 permissions:
   contents: read
   issues: read
@@ -9,6 +12,7 @@ permissions:
 jobs:
   security-group:
     runs-on: ubuntu-latest
+    needs: [autoscaling, load-balancer]
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
@@ -25,14 +29,14 @@ jobs:
         run: cd module6/iac/terraform/instance-creation && terraform init
       
       - name: terraform plan for infrastructure
-        run: cd module6/iac/terraform/instance-creation && terraform plan
+        run: cd module6/iac/terraform/instance-creation && terraform plan -destroy
       
       - name: terraform apply for infrastructure
-        run: cd module6/iac/terraform/instance-creation && terraform apply -auto-approve
+        run: cd module6/iac/terraform/instance-creation && terraform apply -destroy -auto-approve
   
   load-balancer:
     runs-on: ubuntu-latest
-    needs: [security-group]
+    needs: [autoscaling]
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
@@ -49,14 +53,13 @@ jobs:
         run: cd module6/iac/terraform/load-balancer && terraform init
       
       - name: terraform plan for infrastructure
-        run: cd module6/iac/terraform/load-balancer && terraform plan
+        run: cd module6/iac/terraform/load-balancer && terraform plan -destroy
       
       - name: terraform apply for infrastructure
-        run: cd module6/iac/terraform/load-balancer && terraform apply -auto-approve
+        run: cd module6/iac/terraform/load-balancer && terraform apply -destroy -auto-approve
 
   autoscaling:
     runs-on: ubuntu-latest
-    needs: [security-group, load-balancer]
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
@@ -73,9 +76,9 @@ jobs:
         run: cd module6/iac/terraform/autoscaling && terraform init
       
       - name: terraform plan for infrastructure
-        run: cd module6/iac/terraform/autoscaling && terraform plan
+        run: cd module6/iac/terraform/autoscaling && terraform plan -destroy
       
       - name: terraform apply for infrastructure
-        run: cd module6/iac/terraform/autoscaling && terraform apply -auto-approve
+        run: cd module6/iac/terraform/autoscaling && terraform apply -destroy -auto-approve
   
 
