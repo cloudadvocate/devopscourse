@@ -27,3 +27,32 @@ Terraform provisions following:
 * Launch template with ami created using packer and with securiy group and load balancer created in previous terraform scripts 
 * Autoscaling group with availability zone and desired capacity, maximum size, minimum size
 * Autoscaling Atatchment with launch template and AutoScaling group
+
+## Execution
+
+### Security Group
+
+```
+cd instance-creation
+terraform init
+terraform plan
+terraform apply
+```
+
+### Load Balancer
+
+```
+cd load-balancer
+terraform init
+terraform plan
+terraform apply
+```
+
+### AutoScaling
+
+```
+cd autoscaling
+terraform init
+terraform plan
+terraform apply
+```
