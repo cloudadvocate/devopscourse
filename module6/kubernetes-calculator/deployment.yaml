@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calculator-deployment
+spec:
+  selector:
+    matchLabels:
+      app: calculator
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: calculator
+    spec:
+      containers:
+        - name: calculator
+          image: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/calculator:latest
+          ports:
+            - containerPort: 8080
