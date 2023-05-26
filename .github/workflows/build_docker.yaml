@@ -1,9 +1,12 @@
-name: book manager app docker image
+name: calculator app docker image build
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - feature/eks-deploy
+env:
+  WORKSPACE: module6
+  VERSION: eks-deploy
 permissions:
   contents: read
   issues: read
@@ -27,11 +30,8 @@ jobs:
       - name: Set CODEARTIFACT_AUTH_USER env
         run: echo "CODEARTIFACT_AUTH_USER=aws" >> $GITHUB_ENV
 
-      - name: download artifact from artifactory
-        run: aws codeartifact get-package-version-asset --domain cloudadvocate --domain-owner 363267848264 --repository book-manager-repository --format maven --namespace com.cloudadvocate.java --package bookmanager --package-version 1.0.0-20230426.050959-19 --asset bookmanager-1.0.0-20230426.050959-19.jar bookmanager.jar
-
       - name: copy dockerfile
-        run:  cp module3/book-manager-app/Dockerfile .
+        run:  cd ${WORKSPACE}/docker-multistage && docker build . -t calculator:${VERSION}
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -45,7 +45,7 @@ jobs:
          context: .
          push: true
          file: ./Dockerfile
-         tags: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/bookmanager:latest
+         tags: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/calculator:${VERSION}
 
       
       

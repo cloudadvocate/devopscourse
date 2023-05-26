@@ -1,0 +1,21 @@
+
+## EKS Ingress Controller Installation
+
+https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml
+
+eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=demo --approve
+
+eksctl create iamserviceaccount \
+  --cluster=demo \
+  --namespace=kube-system \
+  --name=aws-load-balancer-controller \
+  --role-name AmazonEKSLoadBalancerControllerRole \
+  --attach-policy-arn=arn:aws:iam::363267848264:policy/AWSLoadBalancerControllerIAMPolicy \
+  --approve
+
+
+aws iam attach-role-policy \
+  --role-name AmazonEKSLoadBalancerControllerRole \
+  --policy-arn arn:aws:iam::363267848264:policy/AWSLoadBalancerControllerAdditionalIAMPolicy

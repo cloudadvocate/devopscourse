@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: calculator
-          image: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/calculator:latest
+          image: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/calculator:v2
           ports:
-            - containerPort: 8080
+            - containerPort: 80
