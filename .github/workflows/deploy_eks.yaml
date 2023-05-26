@@ -27,10 +27,6 @@ jobs:
       - name: Update Kubeconfig 
         run: aws eks update-kubeconfig --region ${REGION} --name ${CLUSTER_NAME}
 
-      - name: Set CODEARTIFACT_AUTH_USER env
-        run: echo "KUBE_CONFIG=$(cat ~/.kube/config | base64)" >> $GITHUB_ENV
-
-      - name: configure kubectl
-        run: echo $KUBE_CONFIG
-
+      - name: Set Kubeconfig
+        run: KUBE_CONFIG=$(cat ~/.kube/config | base64)
       
