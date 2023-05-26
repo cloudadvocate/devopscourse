@@ -26,7 +26,7 @@ jobs:
           aws-region: ${{ env.REGION }}
 
       - name: Get Pod details
-        id: poddetails
+        id: updatedeployment
         uses: ianbelcher/eks-kubectl-action@master
         with:
           cluster_name: ${{ env.CLUSTER_NAME }}
