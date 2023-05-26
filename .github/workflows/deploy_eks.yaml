@@ -28,5 +28,5 @@ jobs:
         run: aws eks update-kubeconfig --region ${REGION} --name ${CLUSTER_NAME}
 
       - name: Set Kubeconfig
-        run: export KUBE_CONFIG=$(cat ~/.kube/config | base64) && echo "KUBE_CONFIG=$KUBE_CONFIG" >> $GITHUB_ENV
+        run: export KUBE_CONFIG=$(cat ~/.kube/config | base64) && echo $KUBE_CONFIG
       
