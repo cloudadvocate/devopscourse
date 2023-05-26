@@ -5,7 +5,7 @@ on:
     branches:
       - feature/eks-deploy
 env:
-  CLUSTER_NAME: demo
+  CLUSTER_NAME: testcluster
   REGION: ap-south-1
 permissions:
   contents: read
