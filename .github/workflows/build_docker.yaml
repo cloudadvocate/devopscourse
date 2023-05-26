@@ -45,7 +45,7 @@ jobs:
          context: .
          push: true
          file: ./Dockerfile
-         tags: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/calculator:${VERSION}
+         tags: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/calculator:${{ env.VERSION }}
 
       
       
