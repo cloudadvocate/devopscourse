@@ -25,8 +25,12 @@ jobs:
           aws-region: ${{ env.REGION }}
 
       - name: Get Pod details
+        id: poddetails
         uses: ianbelcher/eks-kubectl-action@master
         with:
           cluster_name: ${{ env.CLUSTER_NAME }}
           args: get pods
+      
+      - name: Use the output
+        run: echo "${{ steps.poddetails.outputs.kubectl-out }}"
       
