@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: calculator-service
 spec:
+  type: NodePort
   selector:
     app: calculator
   ports:
