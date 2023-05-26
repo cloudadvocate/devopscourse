@@ -30,9 +30,6 @@ jobs:
       - name: Set CODEARTIFACT_AUTH_USER env
         run: echo "CODEARTIFACT_AUTH_USER=aws" >> $GITHUB_ENV
 
-      - name: copy dockerfile
-        run:  cd ${WORKSPACE}/docker-multistage && docker build . -t calculator:${VERSION}
-      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -41,10 +38,11 @@ jobs:
       
       - name: Build and push
         uses: docker/build-push-action@v4
+        
         with:
-         context: .
+         context: ./${{ env.WORKSPACE }}/docker-multistage
          push: true
-         file: ./Dockerfile
+         file: ${{ env.WORKSPACE }}/docker-multistage/Dockerfile
          tags: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/calculator:${{ env.VERSION }}
 
       
