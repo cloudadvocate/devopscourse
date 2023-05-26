@@ -22,11 +22,11 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: ap-south-1
+          aws-region: ${{ env.REGION }}
 
-      - name: Update Kubeconfig 
-        run: aws eks update-kubeconfig --region ${REGION} --name ${CLUSTER_NAME}
-
-      - name: Set Kubeconfig
-        run: export KUBE_CONFIG=$(cat ~/.kube/config | base64) && echo $KUBE_CONFIG
+      - name: Get Pod details
+        uses: ianbelcher/eks-kubectl-action@master
+        with:
+          cluster_name: ${{ env.CLUSTER_NAME }}
+          args: get pods
       
