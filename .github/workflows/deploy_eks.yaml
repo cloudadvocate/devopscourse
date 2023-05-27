@@ -5,6 +5,7 @@ on:
     branches:
       - feature/eks-deploy
 env:
+  WORKSPACE: module6
   CLUSTER_NAME: samplecluster
   REGION: ap-south-1
 permissions:
