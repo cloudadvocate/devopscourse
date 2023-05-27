@@ -6,7 +6,7 @@ on:
       - feature/eks-deploy
 env:
   WORKSPACE: module6
-  CLUSTER_NAME: samplecluster
+  CLUSTER_NAME: mycluster
   REGION: ap-south-1
 permissions:
   contents: read
