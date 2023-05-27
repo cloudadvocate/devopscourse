@@ -11,6 +11,7 @@ export default class Display extends React.Component {
   render() {
     return (
       <div className="component-display">
+        <h3>Welcome to DevOps Course</h3>
         <div>{this.props.value}</div>
       </div>
     );

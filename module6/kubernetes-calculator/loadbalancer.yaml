@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: calculator-loadbalancer
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-030115f1362251a1e"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  type: LoadBalancer
+  selector:
+    app: calculator
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
