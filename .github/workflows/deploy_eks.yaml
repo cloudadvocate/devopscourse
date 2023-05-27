@@ -1,9 +1,6 @@
 name: Deploy calculator app in EKS Cluster
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feature/eks-deploy
 env:
   CLUSTER_NAME: testcluster
   REGION: ap-south-1
@@ -25,13 +22,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: ${{ env.REGION }}
 
-      - name: Get Pod details
-        id: updatedeployment
-        uses: ianbelcher/eks-kubectl-action@master
-        with:
-          cluster_name: ${{ env.CLUSTER_NAME }}
-          args: set image deployment/calculator-deployment calculator=363267848264.dkr.ecr.ap-south-1.amazonaws.com/calculator:${{ env.IMAGE_TAG }}
+      #- name: Get Pod details
+      #  id: updatedeployment
+      #  uses: ianbelcher/eks-kubectl-action@master
+      #  with:
+      #    cluster_name: ${{ env.CLUSTER_NAME }}
+      #    args: set image deployment/calculator-deployment calculator=363267848264.dkr.ecr.ap-south-1.amazonaws.com/calculator:${{ env.IMAGE_TAG }}
       
-      - name: Use the output
-        run: echo "${{ steps.poddetails.outputs.kubectl-out }}"
+      #- name: Use the output
+      #  run: echo "${{ steps.poddetails.outputs.kubectl-out }}"
       

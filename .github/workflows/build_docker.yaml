@@ -1,6 +1,9 @@
 name: calculator app docker image build
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/eks-deploy
 env:
   WORKSPACE: module6
   VERSION: eks-deploy
