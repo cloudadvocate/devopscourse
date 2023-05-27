@@ -1,8 +1,11 @@
 name: Deploy calculator app in EKS Cluster
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/eks-deploy
 env:
-  CLUSTER_NAME: testcluster
+  CLUSTER_NAME: samplecluster
   REGION: ap-south-1
   IMAGE_TAG: eks-deploy
 permissions:
