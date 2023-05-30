@@ -1,9 +1,9 @@
 name: Build and Deploy calculator app in EKS Cluster
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feature/eks-deploy
+#push:
+#  branches:
+#    - feature/eks-deploy
 env:
   WORKSPACE: module6
   CLUSTER_NAME: mycluster
