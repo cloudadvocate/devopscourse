@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=1.0.0-20230511.021934-25.jar
+VERSION=1.0.0-20230511.021934-25
 
 if [ ! -f  "dd-java-agent.jar" ] 
 then
