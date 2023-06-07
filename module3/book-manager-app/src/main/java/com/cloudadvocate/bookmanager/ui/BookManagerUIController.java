@@ -17,7 +17,7 @@ public class BookManagerUIController {
 
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
-		model.addAttribute("allbooks", this.bookManagerController.getAllbooks(null));
+		model.addAttribute("allbooks", this.bookManagerController.getAllbooks(null).getBody());
 		return "index";
 	}
 
