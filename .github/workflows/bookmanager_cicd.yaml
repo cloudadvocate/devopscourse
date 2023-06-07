@@ -1,0 +1,53 @@
+name: book manager app build application
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - feature/eks-deploy
+env:
+  WORKSPACE: module3/book-manager-app
+permissions:
+  contents: read
+  issues: read
+  checks: write
+  pull-requests: write
+jobs:
+  maven-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: 'adopt'
+          cache: 'maven'
+          server-id: cloudadvocate-book-manager-repository
+          server-username: CODEARTIFACT_AUTH_USER
+          server-password: CODEARTIFACT_AUTH_TOKEN 
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ap-south-1
+
+      - name: Set CODEARTIFACT_AUTH_TOKEN env
+        run: echo "CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain cloudadvocate --domain-owner 363267848264 --region ap-south-1 --query authorizationToken --output text)" >> $GITHUB_ENV
+
+      - name: Set CODEARTIFACT_AUTH_USER env
+        run: echo "CODEARTIFACT_AUTH_USER=aws" >> $GITHUB_ENV
+
+      - name: Build the code
+        run: cd ${WORKSPACE} && mvn clean install package deploy
+
+      - name: Junit Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Junit Test
+          path: 'module3/book-manager-app/target/surefire-reports/*.xml' 
+          reporter: java-junit
+
+         
