@@ -32,7 +32,16 @@
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>javax.persistence-api</artifactId>
-			<version>2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
 		<dependency>
@@ -57,7 +66,8 @@
 			<repositories>
 				<repository>
 					<id>cloudadvocate-book-manager-repository</id>
-					<url>https://cloudadvocate-363267848264.d.codeartifact.ap-south-1.amazonaws.com/maven/book-manager-repository/</url>
+					<url>
+						https://cloudadvocate-363267848264.d.codeartifact.ap-south-1.amazonaws.com/maven/book-manager-repository/</url>
 				</repository>
 			</repositories>
 		</profile>
@@ -67,7 +77,8 @@
 		<repository>
 			<id>cloudadvocate-book-manager-repository</id>
 			<name>cloudadvocate-book-manager-repository</name>
-			<url>https://cloudadvocate-363267848264.d.codeartifact.ap-south-1.amazonaws.com/maven/book-manager-repository/</url>
+			<url>
+				https://cloudadvocate-363267848264.d.codeartifact.ap-south-1.amazonaws.com/maven/book-manager-repository/</url>
 		</repository>
 	</distributionManagement>
 
