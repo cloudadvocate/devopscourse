@@ -98,4 +98,4 @@ jobs:
          context: .
          push: true
          file: ./Dockerfile
-         tags: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/bookmanager:${{ github.sha }}
+         tags: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/bookmanager:${{ github.sha }},363267848264.dkr.ecr.ap-south-1.amazonaws.com/bookmanager:latest
