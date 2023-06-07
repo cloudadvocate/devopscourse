@@ -50,4 +50,7 @@ jobs:
           path: 'module3/book-manager-app/target/surefire-reports/*.xml' 
           reporter: java-junit
 
+      - name: get deployed version
+        run: echo "ARTIFACT_NAME=$(aws codeartifact list-package-version-assets --domain cloudadvocate --domain-owner 363267848264 --repository book-manager-repository --format maven --namespace com.cloudadvocate.java --package bookmanager --package-version 1.0.0-SNAPSHOT --query 'assets[0].name')" >> $GITHUB_ENV
+
          
