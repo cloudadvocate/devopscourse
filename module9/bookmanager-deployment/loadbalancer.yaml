@@ -3,8 +3,7 @@ kind: Service
 metadata:
   name: bookmanager-loadbalancer
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-030115f1362251a1e"
-    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-0017f0ec002236b20"
 spec:
   type: LoadBalancer
   selector:

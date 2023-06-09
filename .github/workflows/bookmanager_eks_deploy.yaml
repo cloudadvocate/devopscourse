@@ -1,9 +1,9 @@
 name: book manager app ci cd
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feature/eks-deploy
+#  push:
+#    branches:
+#      - feature/eks-deploy
 env:
   WORKSPACE: module3/book-manager-app
   CLUSTER_NAME: mycluster
