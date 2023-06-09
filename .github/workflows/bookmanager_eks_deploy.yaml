@@ -1,0 +1,41 @@
+name: book manager app ci cd
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/eks-deploy
+env:
+  WORKSPACE: module3/book-manager-app
+  CLUSTER_NAME: mycluster
+permissions:
+  contents: read
+  issues: read
+  checks: write
+  pull-requests: write
+jobs:
+  deploy-eks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ap-south-1
+
+      - name: Create Deployment
+        id: createdeployment
+        uses: ianbelcher/eks-kubectl-action@master
+        with:
+          cluster_name: ${{ env.CLUSTER_NAME }}
+          args: create -f module9/bookmanager-deployment/deployment.yaml
+      
+      - name: Create LoadBalancer
+        id: createloadbalancer
+        uses: ianbelcher/eks-kubectl-action@master
+        with:
+          cluster_name: ${{ env.CLUSTER_NAME }}
+          args: create -f module9/bookmanager-deployment/loadbalancer.yaml
+
+    
