@@ -16,4 +16,4 @@ spec:
         - name: bookmanager
           image: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/bookmanager:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
