@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookmanager-deployment
+spec:
+  selector:
+    matchLabels:
+      app: bookmanager
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: bookmanager
+    spec:
+      containers:
+        - name: bookmanager
+          image: 363267848264.dkr.ecr.ap-south-1.amazonaws.com/bookmanager:latest
+          ports:
+            - containerPort: 80
