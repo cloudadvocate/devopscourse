@@ -15,4 +15,4 @@ then
 fi
 echo "starting java application with bookmanager"
 
-java -javaagent:dd-java-agent.jar -Ddd.logs.injection=true -jar bookmanager.jar -Dserver.port=${SERVICE_PORT}
+java -javaagent:dd-java-agent.jar -Dserver.port=${SERVICE_PORT} -Ddd.logs.injection=true -jar bookmanager.jar 
