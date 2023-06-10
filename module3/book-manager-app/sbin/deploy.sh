@@ -1,6 +1,7 @@
 #!/bin/bash
 
-VERSION=1.0.0-20230511.021934-25
+VERSION=1.0.0-SNAPSHOT
+ARTIFACT_NAME=$(aws codeartifact list-package-version-assets --domain cloudadvocate --domain-owner 363267848264 --repository book-manager-repository --format maven --namespace com.cloudadvocate.java --package bookmanager --package-version 1.0.0-SNAPSHOT --query 'assets[0].name' | sed 's/\"//g')
 
 if [ ! -f  "dd-java-agent.jar" ] 
 then
@@ -9,7 +10,7 @@ fi
 
 if [ ! -f  "bookmanager.jar" ]
 then
-    aws codeartifact get-package-version-asset --domain cloudadvocate --domain-owner 363267848264 --repository book-manager-repository --format maven --namespace com.cloudadvocate.java --package bookmanager --package-version ${VERSION} --asset bookmanager-${VERSION}.jar bookmanager.jar
+    aws codeartifact get-package-version-asset --domain cloudadvocate --domain-owner 363267848264 --repository book-manager-repository --format maven --namespace com.cloudadvocate.java --package bookmanager --package-version ${VERSION} --asset ${ARTIFACT_NAME} bookmanager.jar
 fi
 echo "starting java application with bookmanager"
 
