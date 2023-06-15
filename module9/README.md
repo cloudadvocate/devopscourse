@@ -47,7 +47,8 @@ __CI CD__
     - check code coverage
     - build, package and deploy the code to `Code Artifact`
     - Containerize the artifact and pushed to `AWS Container Registry`
-    - Update the EKS Deployment 
+    - Update the EKS Deployment
+    - go to https://console.aws.amazon.com/ec2/home and select load balancer of type classic, copy the DNS name of the server and open the dns name in browser. Deployed Book manager application will be rendered.
 
 
 
